@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  db:
+    container_name: postgres
+    image: postgres
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  port-domain-service:
+      build: .
+      ports:
+        - "8080:8080"
+      volumes:
+        - .:/go/src/app
+      restart: unless-stopped
+      depends_on:
+        - db
